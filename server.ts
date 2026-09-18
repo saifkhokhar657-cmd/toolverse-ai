@@ -3,29 +3,12 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { createServer as createViteServer } from 'vite';
 import { GoogleGenAI } from '@google/genai';
-import { cert, getApps as getAdminApps, initializeApp as initializeAdminApp } from 'firebase-admin/app';
-import { getAuth as getAdminAuth } from 'firebase-admin/auth';
-import { getFirestore as getAdminFirestore } from 'firebase-admin/firestore';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-const PORT = Number(process.env.PORT || 3000);
-
-let adminApp: ReturnType<typeof initializeAdminApp> | null = null;
-try {
-  const projectId = process.env.FIREBASE_PROJECT_ID;
-  const clientEmail = process.env.FIREBASE_CLIENT_EMAIL;
-  const privateKey = process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, '\n');
-  if (projectId && clientEmail && privateKey) {
-    adminApp = getAdminApps().length ? getAdminApps()[0] : initializeAdminApp({
-      credential: cert({ projectId, clientEmail, privateKey }),
-    });
-  }
-} catch (err) {
-  console.warn('Firebase Admin initialization skipped:', err);
-}
+const PORT = 3000;
 
 app.use(express.json({ limit: '10mb' }));
 
@@ -43,34 +26,18 @@ interface RateRecord {
 }
 const ipRateMap = new Map<string, RateRecord>();
 
-async function resolveRequestIdentity(req: Request): Promise<{ id: string; plan: 'guest' | 'free' | 'pro' }> {
-  const authHeader = req.headers.authorization;
-  if (authHeader?.startsWith('Bearer ') && adminApp) {
-    try {
-      const token = authHeader.slice(7);
-      const decoded = await getAdminAuth(adminApp).verifyIdToken(token);
-      let plan: 'free' | 'pro' = 'free';
-      const sub = await getAdminFirestore(adminApp).collection('subscriptions').doc(decoded.uid).get();
-      if (sub.exists && sub.data()?.plan === 'pro' && sub.data()?.status === 'active') plan = 'pro';
-      return { id: `user_${decoded.uid}`, plan };
-    } catch {
-      return { id: 'invalid_auth', plan: 'guest' };
-    }
-  }
+function checkRateLimit(req: Request, plan: 'guest' | 'free' | 'pro' = 'guest'): { allowed: boolean; remaining: number; resetTime: number } {
+  const userId = (req.headers['x-user-id'] as string) || (req.body?.uid as string);
   const ip = (req.headers['x-forwarded-for'] as string)?.split(',')[0]?.trim() || req.socket.remoteAddress || 'unknown-client';
-  return { id: `ip_${ip}`, plan: 'guest' };
-}
-
-async function checkRateLimit(req: Request): Promise<{ allowed: boolean; remaining: number; resetTime: number }> {
-  const identity = await resolveRequestIdentity(req);
+  const clientIdentifier = userId ? `user_${userId}` : `ip_${ip}`;
   const now = Date.now();
-  const limit = USAGE_LIMITS[identity.plan];
+  const limit = USAGE_LIMITS[plan] || USAGE_LIMITS.guest;
   const ONE_DAY = 24 * 60 * 60 * 1000;
 
-  let record = ipRateMap.get(identity.id);
+  let record = ipRateMap.get(clientIdentifier);
   if (!record || now > record.resetAt) {
     record = { count: 0, resetAt: now + ONE_DAY };
-    ipRateMap.set(identity.id, record);
+    ipRateMap.set(clientIdentifier, record);
   }
 
   if (record.count >= limit) {
@@ -117,15 +84,15 @@ app.get('/api/ai/limits', (req: Request, res: Response) => {
 // 3. AI Caption Generator
 app.post('/api/ai/caption', async (req: Request, res: Response) => {
   try {
-    const { topic, platform, tone, audience } = req.body;
+    const { topic, platform, tone, audience, plan } = req.body;
     if (!topic || typeof topic !== 'string' || topic.trim().length === 0) {
       return res.status(400).json({ error: 'Please provide a topic or idea for your caption.' });
     }
 
-    const rateCheck = await checkRateLimit(req);
+    const rateCheck = checkRateLimit(req, plan || 'guest');
     if (!rateCheck.allowed) {
       return res.status(429).json({
-        error: 'Daily AI generation limit reached. Sign in for a higher free limit or upgrade to Pro.',
+        error: `Daily limit reached (${plan === 'free' ? '15' : '5'} generations/day for ${plan || 'guest'} users). Sign in or upgrade to Pro for higher limits!`,
         resetTime: rateCheck.resetTime
       });
     }
@@ -163,6 +130,7 @@ Return only valid JSON.`;
       contents: prompt,
       config: {
         responseMimeType: 'application/json',
+        temperature: 0.8
       }
     });
 
@@ -184,12 +152,12 @@ Return only valid JSON.`;
 // 4. AI Hashtag Generator
 app.post('/api/ai/hashtag', async (req: Request, res: Response) => {
   try {
-    const { topic, platform, count } = req.body;
+    const { topic, platform, count, plan } = req.body;
     if (!topic || typeof topic !== 'string' || topic.trim().length === 0) {
       return res.status(400).json({ error: 'Please provide a topic or keywords to generate hashtags.' });
     }
 
-    const rateCheck = await checkRateLimit(req);
+    const rateCheck = checkRateLimit(req, plan || 'guest');
     if (!rateCheck.allowed) {
       return res.status(429).json({
         error: 'Daily generation limit reached. Sign in or upgrade to Pro for higher limits!',
@@ -229,6 +197,7 @@ Return only valid JSON. Ensure all items start with #.`;
       contents: prompt,
       config: {
         responseMimeType: 'application/json',
+        temperature: 0.7
       }
     });
 
@@ -250,12 +219,12 @@ Return only valid JSON. Ensure all items start with #.`;
 // 5. AI Bio Generator
 app.post('/api/ai/bio', async (req: Request, res: Response) => {
   try {
-    const { nameOrBrand, profession, vibe, platform } = req.body;
+    const { nameOrBrand, profession, vibe, platform, plan } = req.body;
     if (!profession || typeof profession !== 'string' || profession.trim().length === 0) {
       return res.status(400).json({ error: 'Please provide your profession or primary focus.' });
     }
 
-    const rateCheck = await checkRateLimit(req);
+    const rateCheck = checkRateLimit(req, plan || 'guest');
     if (!rateCheck.allowed) {
       return res.status(429).json({
         error: 'Daily generation limit reached. Sign in or upgrade to Pro for higher limits!',
@@ -295,6 +264,7 @@ Return only valid JSON.`;
       contents: prompt,
       config: {
         responseMimeType: 'application/json',
+        temperature: 0.8
       }
     });
 
@@ -316,7 +286,7 @@ Return only valid JSON.`;
 // 6. AI Text Rewriter
 app.post('/api/ai/rewrite', async (req: Request, res: Response) => {
   try {
-    const { text, mode, tone } = req.body;
+    const { text, mode, tone, plan } = req.body;
     if (!text || typeof text !== 'string' || text.trim().length === 0) {
       return res.status(400).json({ error: 'Please provide text to rewrite.' });
     }
@@ -325,7 +295,7 @@ app.post('/api/ai/rewrite', async (req: Request, res: Response) => {
       return res.status(400).json({ error: 'Text exceeds maximum limit of 5,000 characters.' });
     }
 
-    const rateCheck = await checkRateLimit(req);
+    const rateCheck = checkRateLimit(req, plan || 'guest');
     if (!rateCheck.allowed) {
       return res.status(429).json({
         error: 'Daily generation limit reached. Sign in or upgrade to Pro for higher limits!',
@@ -363,6 +333,7 @@ Return only valid JSON.`;
       contents: prompt,
       config: {
         responseMimeType: 'application/json',
+        temperature: 0.6
       }
     });
 

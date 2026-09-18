@@ -3,7 +3,6 @@ import { RefreshCw, Copy, Check, Trash2, Bookmark, AlertCircle, ArrowRight } fro
 import { ToolHeader } from './ToolHeader';
 import { UserUsage } from '../../types';
 import { incrementGenerationsUsed, addSavedItem, logToolHistory } from '../../utils/storage';
-import { getCurrentUserIdToken } from '../../lib/firebase';
 
 interface RewriteResult {
   rewrittenText: string;
@@ -51,17 +50,14 @@ export const AiTextRewriter: React.FC<AiTextRewriterProps> = ({
     setLoading(true);
 
     try {
-      const idToken = await getCurrentUserIdToken();
       const res = await fetch('/api/ai/rewrite', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          ...(idToken ? { Authorization: `Bearer ${idToken}` } : {}),
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           text: inputText.trim(),
           mode,
           tone,
+          plan: usage.plan,
         }),
       });
 

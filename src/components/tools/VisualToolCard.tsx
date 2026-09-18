@@ -146,7 +146,7 @@ export const VisualToolCard: React.FC<VisualToolCardProps> = ({
       <div className="px-4 sm:px-5 pb-4 sm:pb-5 pt-0">
         <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
           <span className="text-[11px] font-semibold text-slate-400">
-            {isAiTool ? 'Gemini 3.8 Flash' : 'Client-side processing'}
+            {isAiTool ? 'Gemini 2.5 Flash' : 'Client-side processing'}
           </span>
           <button
             type="button"

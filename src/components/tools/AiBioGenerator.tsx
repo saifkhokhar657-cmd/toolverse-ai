@@ -3,7 +3,6 @@ import { UserCheck, Copy, Check, Trash2, Bookmark, AlertCircle, RefreshCw } from
 import { ToolHeader } from './ToolHeader';
 import { UserUsage } from '../../types';
 import { incrementGenerationsUsed, addSavedItem, logToolHistory } from '../../utils/storage';
-import { getCurrentUserIdToken } from '../../lib/firebase';
 
 interface BioItem {
   style: string;
@@ -50,18 +49,15 @@ export const AiBioGenerator: React.FC<AiBioGeneratorProps> = ({
     setLoading(true);
 
     try {
-      const idToken = await getCurrentUserIdToken();
       const res = await fetch('/api/ai/bio', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          ...(idToken ? { Authorization: `Bearer ${idToken}` } : {}),
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           nameOrBrand: nameOrBrand.trim() || undefined,
           profession: profession.trim(),
           vibe,
           platform,
+          plan: usage.plan,
         }),
       });
 

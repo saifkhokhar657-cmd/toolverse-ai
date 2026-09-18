@@ -4,7 +4,6 @@ import { ARTICLES_DATA } from '../data/articles';
 import { CATEGORIES } from '../data/tools';
 import { Breadcrumbs } from '../components/layout/Breadcrumbs';
 import { AdContainer } from '../components/layout/AdContainer';
-import { ArticleVisualPreview } from '../components/common/ArticleVisualPreview';
 
 interface BlogIndexPageProps {
   onNavigate: (path: string) => void;
@@ -91,10 +90,9 @@ export const BlogIndexPage: React.FC<BlogIndexPageProps> = ({ onNavigate }) => {
             <article
               key={art.id}
               onClick={() => onNavigate(`/blog/${art.slug}`)}
-              className="bg-white rounded-2xl border border-slate-200/90 shadow-2xs hover:shadow-lg hover:-translate-y-1 transition-all overflow-hidden flex flex-col justify-between group cursor-pointer"
+              className="bg-white rounded-2xl border border-slate-200/90 shadow-2xs hover:shadow-md transition-all p-6 flex flex-col justify-between group cursor-pointer"
             >
-              <ArticleVisualPreview article={art} size="card" className="rounded-none border-0" />
-              <div className="p-5 sm:p-6">
+              <div>
                 <div className="flex items-center justify-between text-xs text-slate-400 mb-2.5">
                   <span className="font-bold text-indigo-600 uppercase tracking-wider text-[10px] bg-indigo-50/80 px-2 py-0.5 rounded">
                     {art.category}

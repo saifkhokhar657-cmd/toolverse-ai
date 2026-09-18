@@ -125,7 +125,7 @@ export const ToolVisualPreview: React.FC<ToolVisualPreviewProps> = ({
               <div className="mt-2 space-y-1 text-[9px] text-slate-700 font-medium leading-tight">
                 <div>✨ Building useful digital products & tools</div>
                 <div>💡 Helping 50k+ creators work smarter</div>
-                <div className="text-indigo-600 font-bold">🔗 toolverse.soulverseapps.com/tools</div>
+                <div className="text-indigo-600 font-bold">🔗 toolverse.ai/tools</div>
               </div>
             </div>
           </div>

@@ -649,7 +649,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
                 <input
                   type="email"
                   disabled
-                  value={user?.email || 'guest@soulverseapps.com'}
+                  value={user?.email || 'guest@toolverse.ai'}
                   className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 bg-slate-50 text-slate-500 font-medium cursor-not-allowed"
                 />
                 <p className="text-[11px] text-slate-400 mt-1 font-normal">

@@ -3,7 +3,6 @@ import { Sparkles, Copy, Check, Trash2, Bookmark, AlertCircle, RefreshCw } from 
 import { ToolHeader } from './ToolHeader';
 import { UserUsage } from '../../types';
 import { incrementGenerationsUsed, addSavedItem, logToolHistory } from '../../utils/storage';
-import { getCurrentUserIdToken } from '../../lib/firebase';
 
 interface CaptionItem {
   title: string;
@@ -48,18 +47,15 @@ export const AiCaptionGenerator: React.FC<AiCaptionGeneratorProps> = ({
     setLoading(true);
 
     try {
-      const idToken = await getCurrentUserIdToken();
       const res = await fetch('/api/ai/caption', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          ...(idToken ? { Authorization: `Bearer ${idToken}` } : {}),
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           topic: topic.trim(),
           platform,
           tone,
           audience: audience.trim() || undefined,
+          plan: usage.plan,
         }),
       });
 

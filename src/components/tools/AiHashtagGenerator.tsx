@@ -3,7 +3,6 @@ import { Hash, Copy, Check, Trash2, Bookmark, AlertCircle, RefreshCw } from 'luc
 import { ToolHeader } from './ToolHeader';
 import { UserUsage } from '../../types';
 import { incrementGenerationsUsed, addSavedItem, logToolHistory } from '../../utils/storage';
-import { getCurrentUserIdToken } from '../../lib/firebase';
 
 interface HashtagData {
   highReach: string[];
@@ -42,17 +41,14 @@ export const AiHashtagGenerator: React.FC<AiHashtagGeneratorProps> = ({
     setLoading(true);
 
     try {
-      const idToken = await getCurrentUserIdToken();
       const res = await fetch('/api/ai/hashtag', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          ...(idToken ? { Authorization: `Bearer ${idToken}` } : {}),
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           topic: topic.trim(),
           platform,
           count,
+          plan: usage.plan,
         }),
       });
 

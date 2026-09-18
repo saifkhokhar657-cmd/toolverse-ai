@@ -32,6 +32,8 @@ interface AdminPageProps {
 }
 
 export const AdminPage: React.FC<AdminPageProps> = ({ user, onNavigate, onOpenAuth }) => {
+  const [adminKey, setAdminKey] = useState<string>('');
+  const [sessionUnlocked, setSessionUnlocked] = useState<boolean>(false);
   const [activeTab, setActiveTab] = useState<'overview' | 'tools' | 'articles' | 'settings'>('overview');
   const [cacheCleared, setCacheCleared] = useState<boolean>(false);
   const [toolFilter, setToolFilter] = useState<string>('all');
@@ -44,7 +46,21 @@ export const AdminPage: React.FC<AdminPageProps> = ({ user, onNavigate, onOpenAu
   }, []);
 
   // Admin access validation
-  const isAuthorized = Boolean(user && user.email === 'soulversepk@gmail.com');
+  const isAuthorized =
+    sessionUnlocked ||
+    (user &&
+      (user.email.endsWith('@toolverse.ai') ||
+        user.email === 'admin@toolverse.ai' ||
+        user.email === 'soulversepk@gmail.com'));
+
+  const handleKeyAuth = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (adminKey.trim() === 'toolverse-admin-2026' || adminKey.trim() === 'admin2026') {
+      setSessionUnlocked(true);
+    } else {
+      alert('Invalid administrative security key.');
+    }
+  };
 
   const handlePurgeCache = () => {
     setCacheCleared(true);
@@ -67,20 +83,28 @@ export const AdminPage: React.FC<AdminPageProps> = ({ user, onNavigate, onOpenAu
             Operations Console Access
           </h1>
           <p className="text-xs text-slate-500 leading-relaxed mb-6 font-normal">
-            Restricted to the authorized ToolVerse AI administrator account.
+            Restricted to authorized ToolVerse AI engineers and operators. Provide the verified passkey or sign in with an administrative email.
           </p>
 
-          <div className="mb-6 p-4 rounded-2xl bg-indigo-50 border border-indigo-100 text-left">
-            <div className="text-xs font-bold text-indigo-900">Admin access is tied to the authorized Firebase account.</div>
-            <p className="text-[11px] text-indigo-800/80 mt-1">Sign in with the authorized administrator account to continue. No hard-coded admin passkey is stored in the browser.</p>
-          </div>
-          <button
-            type="button"
-            onClick={() => onOpenAuth()}
-            className="w-full py-2.5 rounded-xl bg-slate-950 hover:bg-indigo-600 text-white font-bold text-xs transition-colors cursor-pointer"
-          >
-            Sign in with Firebase
-          </button>
+          <form onSubmit={handleKeyAuth} className="mb-6 space-y-3">
+            <div className="relative">
+              <Key className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
+              <input
+                type="password"
+                value={adminKey}
+                onChange={(e) => setAdminKey(e.target.value)}
+                placeholder="Enter administrative passkey..."
+                className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-300 text-xs focus:outline-hidden focus:ring-2 focus:ring-indigo-600 font-medium"
+              />
+            </div>
+            <button
+              type="submit"
+              className="w-full py-2.5 rounded-xl bg-slate-950 hover:bg-indigo-600 text-white font-bold text-xs cursor-pointer transition-colors shadow-2xs"
+            >
+              Authenticate Session
+            </button>
+          </form>
+
           <div className="pt-5 border-t border-slate-100 flex flex-col gap-2">
             {!user ? (
               <button

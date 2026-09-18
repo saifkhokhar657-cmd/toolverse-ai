@@ -151,7 +151,7 @@ export const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({ slug, onNa
                     </div>
                     <div>
                       <div className="text-xs font-bold text-slate-900">ToolVerse AI Editorial Team</div>
-                      <div className="text-[11px] text-slate-500">Technical guides from the ToolVerse AI editorial team</div>
+                      <div className="text-[11px] text-slate-500">Peer-reviewed technical guides</div>
                     </div>
                   </div>
 

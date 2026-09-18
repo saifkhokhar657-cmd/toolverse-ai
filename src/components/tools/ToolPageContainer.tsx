@@ -68,7 +68,7 @@ export const ToolPageContainer: React.FC<ToolPageContainerProps> = ({
         },
         {
           q: 'Which AI model powers this generator?',
-          a: 'This tool is powered server-side by Google Gemini 3.8 Flash, providing state-of-the-art natural language intelligence with sub-second response latencies.'
+          a: 'This tool is powered server-side by Google Gemini 2.5 Flash, providing state-of-the-art natural language intelligence with sub-second response latencies.'
         },
         {
           q: 'Can I use the generated content commercially?',
@@ -171,7 +171,7 @@ export const ToolPageContainer: React.FC<ToolPageContainerProps> = ({
                 {tool.category === 'ai' ? (
                   <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[10px] font-bold tracking-wider bg-indigo-50 text-indigo-700 border border-indigo-200">
                     <Sparkles className="w-3 h-3 text-indigo-600" />
-                    Gemini 3.8 Flash Engine
+                    Gemini 2.5 Flash Engine
                   </span>
                 ) : (
                   <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[10px] font-bold tracking-wider bg-emerald-50 text-emerald-700 border border-emerald-200">
@@ -455,3 +455,8 @@ export const ToolPageContainer: React.FC<ToolPageContainerProps> = ({
   );
 };
 
+
+      </div>
+    </div>
+  );
+};

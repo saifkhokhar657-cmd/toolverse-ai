@@ -123,7 +123,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
           </h1>
 
           <p className="text-sm sm:text-base md:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed mb-8 font-normal">
-            Access 17 high-performance tools: Google Gemini 3.8 Flash AI writing assistants, instant client-side image compressors, PDF converters, and verified financial calculators.
+            Access 17 high-performance tools: Google Gemini 2.5 Flash AI writing assistants, instant client-side image compressors, PDF converters, and verified financial calculators.
           </p>
 
           {/* Instant Search Bar */}
@@ -287,7 +287,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
                 <Sparkles className="w-5 h-5" />
               </div>
               <h3 className="text-sm font-bold text-slate-900 mb-1.5">
-                Server-Side Gemini 3.8 Flash
+                Server-Side Gemini 2.5 Flash
               </h3>
               <p className="text-xs text-slate-600 leading-relaxed font-normal">
                 AI text generation is processed securely on backend microservices. Your API credentials and input prompts are never exposed to the client browser.

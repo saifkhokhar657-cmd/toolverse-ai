@@ -227,7 +227,7 @@ export const LegalPages: React.FC<LegalPageProps> = ({ pageType, onNavigate }) =
               </div>
 
               <p>
-                At ToolVerse AI (accessible from toolverse.soulverseapps.com), we prioritize digital privacy and transparent data governance. This Privacy Policy details our operational data handling procedures.
+                At ToolVerse AI (accessible from toolverse.ai), we prioritize digital privacy and transparent data governance. This Privacy Policy details our operational data handling procedures.
               </p>
 
               <h2 className="text-base font-bold text-slate-900">1. Client-First Execution Paradigm</h2>
