@@ -18,3 +18,8 @@ View your app in AI Studio: https://ai.studio/apps/bc322b87-e7d5-4219-b526-95b5f
 2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
 3. Run the app:
    `npm run dev`
+
+## Company
+ToolVerse AI is a product of **SAWAX ENTERPRISES PRIVATE LIMITED**, registered with the Securities and Exchange Commission of Pakistan (SECP) in 2026. Head Office: Lahore, Punjab, Pakistan.
+
+Production website: https://toolverse.soulverseapps.com

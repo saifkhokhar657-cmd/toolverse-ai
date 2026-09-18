@@ -8,7 +8,7 @@ export const QrCodeGenerator: React.FC = () => {
   const [type, setType] = useState<'url' | 'text' | 'wifi' | 'email'>('url');
   
   // Specific data inputs
-  const [url, setUrl] = useState<string>('https://toolverse.ai');
+  const [url, setUrl] = useState<string>('https://toolverse.soulverseapps.com');
   const [text, setText] = useState<string>('');
   const [emailTo, setEmailTo] = useState<string>('');
   const [emailSubject, setEmailSubject] = useState<string>('');

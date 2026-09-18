@@ -61,6 +61,10 @@ export const LegalPages: React.FC<LegalPageProps> = ({ pageType, onNavigate }) =
                 <p className="text-base text-slate-600 font-medium">
                   Smart Tools. Simple Solutions.
                 </p>
+                <div className="mt-4 p-4 rounded-2xl bg-slate-50 border border-slate-200/90">
+                  <div className="flex items-center gap-2 text-xs font-bold text-slate-900"><Building2 className="w-4 h-4 text-indigo-600" /> SAWAX ENTERPRISES PRIVATE LIMITED</div>
+                  <p className="text-xs text-slate-500 mt-1">Registered with the Securities and Exchange Commission of Pakistan (SECP) in 2026. Head Office: Lahore, Punjab, Pakistan.</p>
+                </div>
               </div>
 
               <p className="font-normal text-slate-600">
@@ -113,6 +117,10 @@ export const LegalPages: React.FC<LegalPageProps> = ({ pageType, onNavigate }) =
                 <p className="text-xs sm:text-sm text-slate-500 font-normal">
                   Have an inquiry, found a browser incompatibility, or want to suggest a new utility? Our team answers all tickets within 24–48 hours.
                 </p>
+                <div className="mt-4 p-4 rounded-2xl bg-slate-50 border border-slate-200/90">
+                  <div className="flex items-center gap-2 text-xs font-bold text-slate-900"><Building2 className="w-4 h-4 text-indigo-600" /> SAWAX ENTERPRISES PRIVATE LIMITED</div>
+                  <p className="text-xs text-slate-500 mt-1">Registered with SECP, Pakistan • Registration year: 2026 • Head Office: Lahore, Punjab, Pakistan</p>
+                </div>
               </div>
 
               {isSubmitted ? (
@@ -224,10 +232,11 @@ export const LegalPages: React.FC<LegalPageProps> = ({ pageType, onNavigate }) =
                   Privacy Policy
                 </h1>
                 <p className="text-xs text-slate-400">Effective Date: September 2026</p>
+                <p className="text-xs text-slate-500 mt-2"><strong>ToolVerse AI</strong> is a product of <strong>SAWAX ENTERPRISES PRIVATE LIMITED</strong>, registered with SECP, Pakistan in 2026. Head Office: Lahore, Punjab, Pakistan.</p>
               </div>
 
               <p>
-                At ToolVerse AI (accessible from toolverse.ai), we prioritize digital privacy and transparent data governance. This Privacy Policy details our operational data handling procedures.
+                At ToolVerse AI (accessible from toolverse.soulverseapps.com), we prioritize digital privacy and transparent data governance. This Privacy Policy details our operational data handling procedures.
               </p>
 
               <h2 className="text-base font-bold text-slate-900">1. Client-First Execution Paradigm</h2>
@@ -244,6 +253,16 @@ export const LegalPages: React.FC<LegalPageProps> = ({ pageType, onNavigate }) =
               <p>
                 We use standard HTML5 LocalStorage to maintain your session preferences, daily usage quotas, and bookmarked workspace items locally on your hardware. You can clear this data at any time via your browser settings.
               </p>
+
+              <h2 className="text-base font-bold text-slate-900">4. Advertising & Analytics</h2>
+              <p>
+                We may use analytics and advertising services to understand site usage and support the operation of the platform. Third-party providers may process information according to their own privacy policies. Where required, appropriate consent controls will be provided.
+              </p>
+
+              <h2 className="text-base font-bold text-slate-900">5. Company & Contact Identity</h2>
+              <p>
+                ToolVerse AI is a product of SAWAX ENTERPRISES PRIVATE LIMITED, registered with the Securities and Exchange Commission of Pakistan (SECP) in 2026, with its Head Office in Lahore, Punjab, Pakistan.
+              </p>
             </div>
           )}
 
@@ -258,6 +277,7 @@ export const LegalPages: React.FC<LegalPageProps> = ({ pageType, onNavigate }) =
                   Terms of Service
                 </h1>
                 <p className="text-xs text-slate-400">Effective Date: September 2026</p>
+                <p className="text-xs text-slate-500 mt-2"><strong>ToolVerse AI</strong> is a product of <strong>SAWAX ENTERPRISES PRIVATE LIMITED</strong>, registered with SECP, Pakistan in 2026. Head Office: Lahore, Punjab, Pakistan.</p>
               </div>
 
               <p>
@@ -273,6 +293,36 @@ export const LegalPages: React.FC<LegalPageProps> = ({ pageType, onNavigate }) =
               <p>
                 You agree not to execute distributed denial-of-service (DDoS) campaigns, automated scraping scripts that overload our endpoints, or submit unlawful or abusive materials to our generative AI interfaces.
               </p>
+
+              <h2 className="text-base font-bold text-slate-900">3. AI-Generated Content</h2>
+              <p>
+                AI-generated text is provided as an assistive output and may contain errors or omissions. You are responsible for reviewing, editing, and verifying generated content before publishing, relying on, or commercially using it.
+              </p>
+
+              <h2 className="text-base font-bold text-slate-900">4. User Content & Files</h2>
+              <p>
+                You must have the necessary rights and permissions for any text, images, documents, or other material you process through ToolVerse AI. You must not use the service to process unlawful material or to infringe another person's rights.
+              </p>
+
+              <h2 className="text-base font-bold text-slate-900">5. Intellectual Property</h2>
+              <p>
+                ToolVerse AI, its software, branding, interface, original articles, and underlying technology are owned by or licensed to SAWAX ENTERPRISES PRIVATE LIMITED and are protected by applicable intellectual-property laws.
+              </p>
+
+              <h2 className="text-base font-bold text-slate-900">6. Service Availability</h2>
+              <p>
+                We may update, suspend, limit, or discontinue features when necessary for maintenance, security, legal compliance, or product development. We do not guarantee uninterrupted availability.
+              </p>
+
+              <h2 className="text-base font-bold text-slate-900">7. Limitation of Liability</h2>
+              <p>
+                To the extent permitted by applicable law, ToolVerse AI and SAWAX ENTERPRISES PRIVATE LIMITED are not liable for indirect, incidental, special, consequential, or business losses arising from use of the service.
+              </p>
+
+              <h2 className="text-base font-bold text-slate-900">8. Changes to These Terms</h2>
+              <p>
+                These Terms may be updated from time to time. Continued use of ToolVerse AI after an update constitutes acceptance of the revised Terms.
+              </p>
             </div>
           )}
 
@@ -287,6 +337,7 @@ export const LegalPages: React.FC<LegalPageProps> = ({ pageType, onNavigate }) =
                   Cookie Policy
                 </h1>
                 <p className="text-xs text-slate-400">Effective Date: September 2026</p>
+                <p className="text-xs text-slate-500 mt-2"><strong>ToolVerse AI</strong> is a product of <strong>SAWAX ENTERPRISES PRIVATE LIMITED</strong>, registered with SECP, Pakistan in 2026. Head Office: Lahore, Punjab, Pakistan.</p>
               </div>
 
               <p>
@@ -296,6 +347,11 @@ export const LegalPages: React.FC<LegalPageProps> = ({ pageType, onNavigate }) =
               <h2 className="text-base font-bold text-slate-900">1. Functional Local Storage</h2>
               <p>
                 ToolVerse AI avoids invasive tracking cookies and relies predominantly on browser LocalStorage to maintain your daily rate limits, UI preferences, and bookmarked workspace items.
+              </p>
+
+              <h2 className="text-base font-bold text-slate-900">2. Advertising & Third-Party Services</h2>
+              <p>
+                If advertising is enabled, third-party advertising providers such as Google may use cookies or similar technologies to serve and measure advertisements in accordance with their own policies. Users can manage available cookie and advertising preferences through their browser or applicable consent controls.
               </p>
             </div>
           )}
@@ -311,6 +367,7 @@ export const LegalPages: React.FC<LegalPageProps> = ({ pageType, onNavigate }) =
                   Disclaimer & Liability Notice
                 </h1>
                 <p className="text-xs text-slate-400">Effective Date: September 2026</p>
+                <p className="text-xs text-slate-500 mt-2"><strong>ToolVerse AI</strong> is a product of <strong>SAWAX ENTERPRISES PRIVATE LIMITED</strong>, registered with SECP, Pakistan in 2026. Head Office: Lahore, Punjab, Pakistan.</p>
               </div>
 
               <p>
@@ -320,6 +377,16 @@ export const LegalPages: React.FC<LegalPageProps> = ({ pageType, onNavigate }) =
               <h2 className="text-base font-bold text-slate-900">1. Financial & Health Disclaimer</h2>
               <p>
                 Calculations rendered by tools such as the EMI Loan Calculator or BMI Calculator do not constitute formal certified financial advice, loan agreements, or medical diagnoses. Always consult licensed practitioners for professional guidance.
+              </p>
+
+              <h2 className="text-base font-bold text-slate-900">2. Accuracy & Third-Party Services</h2>
+              <p>
+                Tool results, AI outputs, articles, and third-party integrations are provided for general informational and productivity purposes. Verify important information independently before making decisions based on any result.
+              </p>
+
+              <h2 className="text-base font-bold text-slate-900">3. Company</h2>
+              <p>
+                ToolVerse AI is a product of SAWAX ENTERPRISES PRIVATE LIMITED, registered with SECP, Pakistan in 2026. Head Office: Lahore, Punjab, Pakistan.
               </p>
             </div>
           )}

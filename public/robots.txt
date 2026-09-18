@@ -3,4 +3,4 @@ Allow: /
 Disallow: /admin
 Disallow: /api/
 
-Sitemap: https://toolverse.ai/sitemap.xml
+Sitemap: https://toolverse.soulverseapps.com/sitemap.xml
