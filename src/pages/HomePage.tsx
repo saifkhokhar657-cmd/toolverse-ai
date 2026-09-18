@@ -103,21 +103,21 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
   const featuredArticles = useMemo(() => ARTICLES_DATA.slice(0, 6), []);
 
   return (
-    <div className="min-h-screen bg-slate-50/40">
+    <div className="min-h-screen tv-page-bg">
       
       {/* Hero Section */}
-      <section className="relative overflow-hidden pt-12 pb-16 md:pt-20 md:pb-24 bg-white border-b border-slate-200/80">
+      <section className="relative overflow-hidden pt-12 pb-16 md:pt-20 md:pb-24 tv-hero border-b border-indigo-100/60">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 text-center">
           
           {/* Tagline Badge */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-100 border border-slate-200/90 text-slate-800 text-[11px] font-black uppercase tracking-wider mb-6">
+          <div className="tv-badge mb-6">
             <span className="w-2 h-2 rounded-full bg-indigo-600 animate-pulse"></span>
             <span>Smart Tools. Simple Solutions.</span>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-slate-900 tracking-tight leading-[1.15] mb-6">
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-slate-950 tracking-tight leading-[1.08] mb-6 tv-section-title">
             Everything you need.{' '}
-            <span className="bg-gradient-to-r from-indigo-600 via-blue-600 to-cyan-600 bg-clip-text text-transparent">
+            <span className="tv-gradient-text">
               Fast, private, and free.
             </span>
           </h1>
@@ -127,14 +127,14 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
           </p>
 
           {/* Instant Search Bar */}
-          <div className="max-w-xl mx-auto relative mb-6">
+          <div className="max-w-2xl mx-auto relative mb-7">
             <Search className="w-5 h-5 text-slate-400 absolute left-4 top-3.5" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search 17 production tools (e.g. compress image, jpg to pdf, captions, emi)..."
-              className="w-full pl-12 pr-12 py-3.5 rounded-2xl bg-white border border-slate-300 shadow-sm text-slate-900 text-sm placeholder:text-slate-400 focus:outline-hidden focus:ring-2 focus:ring-indigo-600 focus:border-indigo-600 transition-all font-medium"
+              className="w-full pl-12 pr-12 py-4 rounded-2xl bg-white/90 border border-indigo-100 shadow-lg shadow-indigo-100/40 text-slate-900 text-sm placeholder:text-slate-400 focus:outline-hidden focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all font-medium"
             />
             {searchQuery && (
               <button
@@ -175,8 +175,8 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
               onClick={() => setSelectedCategory('all')}
               className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                 selectedCategory === 'all'
-                  ? 'bg-slate-950 text-white shadow-2xs'
-                  : 'bg-white border border-slate-200 text-slate-700 hover:bg-slate-50'
+                  ? 'tv-primary-btn text-white shadow-md'
+                  : 'bg-white/80 border border-indigo-100 text-slate-700 hover:border-indigo-300 hover:text-indigo-700 hover:bg-white'
               }`}
             >
               All Tools ({TOOLS_LIST.length})
@@ -237,7 +237,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+          <div className="tv-tool-grid">
             {filteredTools.map((tool) => (
               <VisualToolCard
                 key={tool.id}
@@ -270,7 +270,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-slate-50/70 p-6 rounded-2xl border border-slate-200/90 shadow-2xs">
+            <div className="tv-feature-card p-6">
               <div className="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center mb-4">
                 <ShieldCheck className="w-5 h-5" />
               </div>
@@ -282,7 +282,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
               </p>
             </div>
 
-            <div className="bg-slate-50/70 p-6 rounded-2xl border border-slate-200/90 shadow-2xs">
+            <div className="tv-feature-card p-6">
               <div className="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center mb-4">
                 <Sparkles className="w-5 h-5" />
               </div>
@@ -294,7 +294,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
               </p>
             </div>
 
-            <div className="bg-slate-50/70 p-6 rounded-2xl border border-slate-200/90 shadow-2xs">
+            <div className="tv-feature-card p-6">
               <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center mb-4">
                 <Zap className="w-5 h-5" />
               </div>
@@ -338,7 +338,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
             <article
               key={art.id}
               onClick={() => onNavigate(`/blog/${art.slug}`)}
-              className="bg-white rounded-2xl border border-slate-200/90 shadow-2xs hover:shadow-md transition-shadow p-5 sm:p-6 flex flex-col justify-between group cursor-pointer"
+              className="tv-article-card p-5 sm:p-6 flex flex-col justify-between group cursor-pointer"
             >
               <div>
                 <ArticleVisualPreview article={art} size="card" className="mb-4" />

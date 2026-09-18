@@ -46,6 +46,18 @@ function checkRateLimit(req: Request, plan: 'guest' | 'free' | 'pro' = 'guest'):
 }
 
 // Lazy initialization of GoogleGenAI client
+
+function parseModelJson(text: string): any {
+  const cleaned = (text || '').trim().replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/i, '').trim();
+  try { return JSON.parse(cleaned); } catch {}
+  const first = cleaned.indexOf('{');
+  const last = cleaned.lastIndexOf('}');
+  if (first >= 0 && last > first) {
+    try { return JSON.parse(cleaned.slice(first, last + 1)); } catch {}
+  }
+  throw new Error('AI returned incomplete JSON');
+}
+
 function getGenAIClient(): GoogleGenAI | null {
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
@@ -132,7 +144,7 @@ Return only valid JSON.`;
     });
 
     const text = response.text || '{}';
-    const parsed = JSON.parse(text);
+    const parsed = parseModelJson(text);
     return res.json({
       success: true,
       data: parsed,
@@ -199,7 +211,7 @@ Return only valid JSON. Ensure all items start with #.`;
     });
 
     const text = response.text || '{}';
-    const parsed = JSON.parse(text);
+    const parsed = parseModelJson(text);
     return res.json({
       success: true,
       data: parsed,
@@ -266,7 +278,7 @@ Return only valid JSON.`;
     });
 
     const text = response.text || '{}';
-    const parsed = JSON.parse(text);
+    const parsed = parseModelJson(text);
     return res.json({
       success: true,
       data: parsed,

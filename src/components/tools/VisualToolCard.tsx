@@ -92,13 +92,13 @@ export const VisualToolCard: React.FC<VisualToolCardProps> = ({
   return (
     <div
       onClick={() => onNavigate(tool.path)}
-      className={`group bg-white rounded-2xl border border-slate-200/90 shadow-2xs hover:shadow-md hover:border-indigo-300 transition-all duration-200 flex flex-col justify-between overflow-hidden cursor-pointer ${
+      className={`group tv-card tv-tool-card flex flex-col justify-between overflow-hidden cursor-pointer ${
         featured ? 'ring-1 ring-indigo-500/20' : ''
       }`}
     >
       <div>
         {/* Visual Illustration Thumbnail */}
-        <div className="relative overflow-hidden bg-slate-50/50">
+        <div className="relative overflow-hidden tv-preview-wrap">
           <ToolVisualPreview toolId={tool.id} size="md" />
 
           {/* Floating Category Pill */}
@@ -150,7 +150,7 @@ export const VisualToolCard: React.FC<VisualToolCardProps> = ({
           </span>
           <button
             type="button"
-            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-slate-950 group-hover:bg-indigo-600 text-white font-bold text-xs shadow-2xs transition-colors cursor-pointer"
+            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl tv-use-btn text-white font-bold text-xs shadow-sm transition-all cursor-pointer"
           >
             <span>Use Tool</span>
             <ArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform" />

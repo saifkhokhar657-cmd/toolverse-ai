@@ -39,7 +39,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-md border-b border-slate-200/90 shadow-2xs">
+    <header className="sticky top-0 z-50 w-full tv-glass-nav">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         
         {/* Brand Logo */}
@@ -63,8 +63,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                 onClick={() => handleLinkClick(link.path)}
                 className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                   active
-                    ? 'text-indigo-600 bg-indigo-50/90 shadow-2xs'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/70'
+                    ? 'text-indigo-700 bg-indigo-50 shadow-sm'
+                    : 'text-slate-600 hover:text-indigo-700 hover:bg-indigo-50/70'
                 }`}
               >
                 {link.label}
