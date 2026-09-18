@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ToolVerse AI — Smart Tools. Simple Solutions.</title>
+    <meta name="description" content="Free online AI, image, PDF, text and calculator tools designed to make everyday tasks faster and easier. High quality, private, and 100% functional." />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/icon.svg" />
+    <meta name="theme-color" content="#4F46E5" />
+    <meta name="application-name" content="ToolVerse AI" />
+    <meta property="og:title" content="ToolVerse AI — Smart Tools. Simple Solutions." />
+    <meta property="og:description" content="Free online AI, image, PDF, text and calculator tools designed to make everyday tasks faster and easier." />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="ToolVerse AI" />
+    <meta property="og:image" content="/og-image.svg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="ToolVerse AI — Smart Tools. Simple Solutions." />
+    <meta name="twitter:description" content="Free online AI, image, PDF, text and calculator tools designed to make everyday tasks faster and easier." />
+    <meta name="twitter:image" content="/og-image.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <!-- Mozilla PDF.js for genuine PDF page rendering to JPG/Canvas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script>
+      if (typeof window !== 'undefined' && window.pdfjsLib) {
+        window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+      }
+    </script>
+  </head>
+  <body class="bg-slate-50 text-slate-900 antialiased selection:bg-indigo-500 selection:text-white">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+

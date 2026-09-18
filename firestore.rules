@@ -1,0 +1,52 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isOwner(uid) {
+      return isAuthenticated() && request.auth.uid == uid;
+    }
+    
+    function isAdmin() {
+      return isAuthenticated() && (
+        request.auth.token.email.matches('.*@toolverse[.]ai$') ||
+        request.auth.token.email == 'soulversepk@gmail.com'
+      );
+    }
+
+    // Users Collection
+    match /users/{uid} {
+      allow read: if isOwner(uid) || isAdmin();
+      allow create, update: if isOwner(uid) || isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    // Daily Usage Collection
+    match /usage/{docId} {
+      allow read: if isAuthenticated() && (docId.matches('^' + request.auth.uid + '_.*') || isAdmin());
+      allow write: if isAuthenticated() && (docId.matches('^' + request.auth.uid + '_.*') || isAdmin());
+    }
+
+    // Bookmarks Collection
+    match /bookmarks/{bookmarkId} {
+      allow read: if isAuthenticated() && (resource == null || resource.data.uid == request.auth.uid || isAdmin());
+      allow create: if isAuthenticated() && request.resource.data.uid == request.auth.uid;
+      allow update, delete: if isAuthenticated() && (resource.data.uid == request.auth.uid || isAdmin());
+    }
+
+    // Subscriptions Collection
+    match /subscriptions/{uid} {
+      allow read: if isOwner(uid) || isAdmin();
+      allow write: if isAdmin();
+    }
+
+    // Platform & Site Settings
+    match /siteSettings/{settingId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+  }
+}

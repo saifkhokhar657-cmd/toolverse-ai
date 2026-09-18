@@ -1,0 +1,7 @@
+{
+  "name": "ToolVerse AI",
+  "description": "Smart Tools. Simple Solutions. Free online AI, image, PDF, text, and calculator utilities designed for speed, privacy, and precision.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+

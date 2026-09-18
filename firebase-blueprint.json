@@ -1,0 +1,94 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "User Profile",
+      "description": "User account profile and plan tier details",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Unique Firebase Authentication UID" },
+        "email": { "type": "string", "format": "email", "description": "User email address" },
+        "displayName": { "type": "string", "description": "User display name" },
+        "photoURL": { "type": "string", "description": "Avatar photo URL" },
+        "plan": { "type": "string", "enum": ["free", "pro"], "description": "Subscription tier" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Creation timestamp ISO string" },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Last update timestamp ISO string" }
+      },
+      "required": ["uid", "email", "displayName", "plan", "createdAt", "updatedAt"]
+    },
+    "UsageRecord": {
+      "title": "Usage Record",
+      "description": "Daily AI generation rate limit tracker",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Firebase user UID" },
+        "date": { "type": "string", "description": "Calendar date string YYYY-MM-DD" },
+        "generationsUsed": { "type": "number", "description": "Number of AI operations performed today" },
+        "generationsLimit": { "type": "number", "description": "Daily generation quota based on tier" },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Last updated timestamp" }
+      },
+      "required": ["uid", "date", "generationsUsed", "generationsLimit", "updatedAt"]
+    },
+    "Bookmark": {
+      "title": "Bookmark",
+      "description": "Saved tools and articles bookmarked by the user",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Bookmark record identifier" },
+        "uid": { "type": "string", "description": "Owner user UID" },
+        "itemId": { "type": "string", "description": "Target tool slug or article ID" },
+        "itemType": { "type": "string", "enum": ["tool", "article"], "description": "Type of saved item" },
+        "title": { "type": "string", "description": "Title of saved item" },
+        "path": { "type": "string", "description": "Navigation link path" },
+        "category": { "type": "string", "description": "Optional category" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Timestamp when bookmarked" }
+      },
+      "required": ["id", "uid", "itemId", "itemType", "title", "path", "createdAt"]
+    },
+    "Subscription": {
+      "title": "Subscription",
+      "description": "Customer subscription billing state",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "User UID" },
+        "plan": { "type": "string", "enum": ["free", "pro"], "description": "Active tier" },
+        "status": { "type": "string", "enum": ["active", "trialing", "canceled"], "description": "Billing status" },
+        "currentPeriodEnd": { "type": "string", "format": "date-time", "description": "End of current billing cycle" },
+        "cancelAtPeriodEnd": { "type": "boolean", "description": "Whether plan cancels at cycle end" },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Last billing update" }
+      },
+      "required": ["uid", "plan", "status", "updatedAt"]
+    },
+    "SiteSettings": {
+      "title": "Site Settings",
+      "description": "Global operational flags and platform parameters",
+      "type": "object",
+      "properties": {
+        "maintenanceMode": { "type": "boolean", "description": "Whether the app is in maintenance mode" },
+        "freeDailyAiLimit": { "type": "number", "description": "Default free daily AI quota" }
+      },
+      "required": ["maintenanceMode", "freeDailyAiLimit"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "User accounts and subscription mappings"
+    },
+    "/usage/{usageId}": {
+      "schema": "UsageRecord",
+      "description": "Daily user rate limiting usage entries"
+    },
+    "/bookmarks/{bookmarkId}": {
+      "schema": "Bookmark",
+      "description": "Individual user saved items"
+    },
+    "/subscriptions/{userId}": {
+      "schema": "Subscription",
+      "description": "Active subscription status per user"
+    },
+    "/siteSettings/{settingId}": {
+      "schema": "SiteSettings",
+      "description": "Global site settings documents"
+    }
+  }
+}
